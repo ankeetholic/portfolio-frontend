@@ -201,7 +201,7 @@ export default async function Home() {
                       {/* Top Category Pill */}
                       <div>
                         <span className="text-[11px] font-bold tracking-widest text-accent uppercase px-4 py-1.5 bg-accent/10 rounded-full border border-accent/20">
-                          {techs.length > 0 ? techs[0] + ' PLATFORM' : 'FEATURED PROJECT'}
+                          {p.category ? p.category : 'FEATURED PROJECT'}
                         </span>
                       </div>
                       
