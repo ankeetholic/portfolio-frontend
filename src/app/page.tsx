@@ -170,9 +170,8 @@ export default async function Home() {
             </h2>
           </FadeIn>
           {projects.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="flex flex-col space-y-24">
               {projects.map((p: any, idx: number) => {
-                // Dynamic gorgeous gradient fallbacks if no image exists
                 const gradients = [
                   "from-violet-600 via-fuchsia-600 to-orange-500",
                   "from-cyan-500 via-blue-500 to-indigo-600",
@@ -180,62 +179,64 @@ export default async function Home() {
                   "from-rose-500 via-red-500 to-amber-500"
                 ];
                 const bgClass = gradients[idx % gradients.length];
+                
+                // Extracting technologies array
+                const techs = p.technologies ? p.technologies.split(',').map((t: string) => t.trim()) : [];
 
                 return (
-                  <FadeIn key={p.id} delay={0.1 * idx} className="group relative rounded-2xl overflow-hidden h-[300px] shadow-sm shadow-black/5 dark:shadow-accent/5 hover:shadow-xl hover:shadow-accent/20 transition-all duration-500 cursor-default">
+                  <FadeIn key={p.id} delay={0.1} className={`flex flex-col lg:flex-row gap-12 lg:gap-16 items-center ${idx % 2 !== 0 ? 'lg:flex-row-reverse' : ''}`}>
                     
-                    {/* Background Layer */}
-                    {p.image ? (
-                      <img src={p.image} alt={p.title} className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-in-out" />
-                    ) : (
-                      <div className={`absolute inset-0 w-full h-full bg-gradient-to-br ${bgClass} opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-700 ease-in-out`}></div>
-                    )}
-                  
-                  {/* Dark Gradient Overlay for perfect text readability */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/60 to-transparent"></div>
-                  
-                  {/* Content Layer */}
-                  <div className="absolute inset-0 flex flex-col justify-end p-5">
-                    <div className="transform translate-y-16 group-hover:translate-y-0 transition-transform duration-500 ease-out">
+                    {/* Left: Image Container (Smaller) */}
+                    <div className="w-full lg:w-5/12 shrink-0 relative rounded-3xl overflow-hidden bg-gradient-to-b from-foreground/5 to-transparent border border-foreground/10 aspect-[4/3] flex items-center justify-center p-6 group">
+                      {p.image ? (
+                        <img src={p.image.startsWith('http') ? p.image : `${process.env.NEXT_PUBLIC_API_URL?.replace('/api', '') || 'http://localhost:8000'}${p.image}`} alt={p.title} className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-700 ease-in-out" />
+                      ) : (
+                        <div className={`w-full h-full rounded-xl bg-gradient-to-br ${bgClass} opacity-80 group-hover:scale-105 transition-transform duration-700 ease-in-out shadow-2xl`}></div>
+                      )}
+                    </div>
+                    
+                    {/* Right: Content (Wider) */}
+                    <div className="w-full lg:w-7/12 flex flex-col justify-center space-y-6 lg:px-4">
                       
-                      {/* Technologies Pills */}
-                      <div className="flex flex-wrap gap-1.5 mb-3">
-                        {p.technologies.split(',').slice(0, 3).map((tech: string, i: number) => (
-                          <span key={i} className="px-2 py-0.5 bg-white/20 backdrop-blur-md text-white border border-white/10 text-[10px] font-bold rounded-full">
-                            {tech.trim()}
-                          </span>
-                        ))}
-                        {p.technologies.split(',').length > 3 && (
-                          <span className="px-2 py-0.5 bg-white/10 text-white/70 text-[10px] font-bold rounded-full">
-                            +{p.technologies.split(',').length - 3}
-                          </span>
-                        )}
+                      {/* Top Category Pill */}
+                      <div>
+                        <span className="text-[11px] font-bold tracking-widest text-accent uppercase px-4 py-1.5 bg-accent/10 rounded-full border border-accent/20">
+                          {techs.length > 0 ? techs[0] + ' PLATFORM' : 'FEATURED PROJECT'}
+                        </span>
                       </div>
                       
                       {/* Title */}
-                      <h3 className="text-lg font-black text-white mb-2 tracking-tight line-clamp-1">{p.title}</h3>
+                      <h3 className="text-4xl sm:text-5xl font-black text-foreground tracking-tight">{p.title}</h3>
                       
-                      {/* Description (Fades in) */}
-                      <p className="text-white/80 text-xs line-clamp-2 mb-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-75">
+                      {/* Description */}
+                      <p className="text-neutral-500 dark:text-neutral-400 text-lg leading-relaxed max-w-xl">
                         {p.description}
                       </p>
                       
-                      {/* Action Buttons (Fades in) */}
-                      <div className="flex items-center gap-3 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-150">
+                      {/* Technology Stack - Sleek Pills */}
+                      <div className="flex flex-wrap gap-2 pt-2">
+                        {techs.map((tech: string, i: number) => (
+                          <span key={i} className="px-3 py-1.5 bg-foreground/5 dark:bg-white/5 border border-foreground/10 dark:border-white/10 text-foreground/80 text-[11px] font-bold tracking-wide rounded-full shadow-sm hover:scale-105 transition-transform cursor-default">
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
+
+                      {/* Action Buttons */}
+                      <div className="flex flex-wrap gap-4 pt-6">
                         {p.github_url && (
-                          <a href={p.github_url} target="_blank" className="flex items-center gap-1.5 px-3 py-1.5 bg-white text-black rounded-full text-xs font-bold hover:scale-105 transition-transform">
-                            <GithubLogo size={14} /> Source
+                          <a href={p.github_url} target="_blank" className="inline-flex items-center gap-2 px-6 py-3 bg-transparent text-foreground border border-foreground/20 hover:bg-foreground/5 rounded-xl font-bold transition-colors">
+                            View Repository
                           </a>
                         )}
                         {p.live_url && (
-                          <a href={p.live_url} target="_blank" className="flex items-center gap-1.5 px-3 py-1.5 bg-white/20 backdrop-blur-md text-white border border-white/30 rounded-full text-xs font-bold hover:bg-white/30 transition-colors">
-                            <ExternalLink size={14} /> Live
+                          <a href={p.live_url} target="_blank" className="inline-flex items-center justify-center px-6 py-3 bg-accent text-white hover:bg-accent/90 rounded-xl font-bold transition-colors">
+                            Live Demo
                           </a>
                         )}
                       </div>
                     </div>
-                  </div>
-                </FadeIn>
+                  </FadeIn>
                 );
               })}
             </div>
