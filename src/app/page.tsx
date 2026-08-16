@@ -34,7 +34,8 @@ export default async function Home() {
   let research = [];
   
   try {
-    projects = await fetchProjects();
+    const allProjects = await fetchProjects();
+    projects = allProjects.filter((p: any) => p.featured);
     experience = await fetchExperience();
     skills = await fetchSkills();
     education = await fetchEducation();
