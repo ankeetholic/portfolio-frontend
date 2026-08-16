@@ -199,11 +199,13 @@ export default async function Home() {
                     <div className="w-full lg:w-7/12 flex flex-col justify-center space-y-6 lg:px-4">
                       
                       {/* Top Category Pill */}
-                      <div>
-                        <span className="text-[11px] font-bold tracking-widest text-accent uppercase px-4 py-1.5 bg-accent/10 rounded-full border border-accent/20">
-                          {p.category ? p.category : 'FEATURED PROJECT'}
-                        </span>
-                      </div>
+                      {(p.category || p.featured) && (
+                        <div>
+                          <span className="text-[11px] font-bold tracking-widest text-accent uppercase px-4 py-1.5 bg-accent/10 rounded-full border border-accent/20">
+                            {p.featured ? 'FEATURED PROJECT' : p.category}
+                          </span>
+                        </div>
+                      )}
                       
                       {/* Title */}
                       <h3 className="text-4xl sm:text-5xl font-black text-foreground tracking-tight">{p.title}</h3>
