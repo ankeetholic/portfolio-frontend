@@ -16,16 +16,6 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Ankit Adhikari | Software Engineer & AI/ML Researcher",
   description: "Portfolio of Ankit Adhikari, Software Engineer and AI/ML Researcher specializing in computer vision, deep learning, and full-stack development.",
-  openGraph: {
-    images: [
-      {
-        url: "/profile2.jpg",
-        width: 800,
-        height: 600,
-        alt: "Ankit Adhikari",
-      },
-    ],
-  },
 };
 
 export default function RootLayout({
