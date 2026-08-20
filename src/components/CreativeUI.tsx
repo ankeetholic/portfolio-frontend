@@ -72,7 +72,7 @@ export function FloatingAvatar() {
       <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-accent to-purple-500 blur-3xl opacity-20 animate-pulse" />
       <div className="absolute inset-2 rounded-full border-2 border-accent/30 overflow-hidden bg-card">
         <img 
-          src="/profile2.jpg" 
+          src="/profile4.jpg" 
           alt="Ankit Adhikari" 
           className="w-full h-full object-cover mix-blend-luminosity hover:mix-blend-normal transition-all duration-500"
           onError={(e) => {

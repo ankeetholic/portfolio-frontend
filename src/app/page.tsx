@@ -361,7 +361,7 @@ export default async function Home() {
         <div className="max-w-5xl mx-auto px-6 lg:px-12 flex flex-col md:flex-row justify-between items-center gap-6">
           
           <div className="flex items-center gap-3.5">
-            <img src="/profile2.jpg" alt="Ankit Adhikari" className="w-[46px] h-[46px] rounded-full object-cover shadow-sm border border-card-border" />
+            <img src="/profile4.jpg" alt="Ankit Adhikari" className="w-[46px] h-[46px] rounded-full object-cover shadow-sm border border-card-border" />
             <div className="flex flex-col items-start">
               <h2 className="text-lg font-black tracking-tight text-foreground leading-none">Ankit Adhikari</h2>
               <p className="text-neutral-500 text-[13px] mt-1.5 font-medium">Software Engineer & AI/ML Researcher</p>
